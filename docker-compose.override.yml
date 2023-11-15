@@ -1,0 +1,53 @@
+services:
+    backend:
+        build:
+            target: development
+        working_dir: /app/backend
+        volumes:
+            - ./backend:/app/backend
+        environment:
+            - PORT=3100
+            - NODE_ENV=development
+            - ALLOWED_ORIGINS=http://localhost:8000
+            - SERVICE_HOST=service
+            - SERVICE_PORT=3101
+        restart: on-failure
+        command: ["bash", "-c", "yarn && yarn start:debug"]
+        ports:
+            - "3100:3100"
+            - "9200:9229" # debug
+        networks:
+            - internal
+
+    service:
+        build:
+            target: development
+        working_dir: /app/service
+        volumes:
+            - ./service:/app/service
+        environment:
+            - PORT=3101
+            - NODE_ENV=development
+            - HOST=service
+        restart: on-failure
+        command: ["bash", "-c", "yarn && yarn start:debug"]
+        ports:
+            - "9201:9229" # debug
+        networks:
+            - internal
+
+    frontend:
+        build:
+            target: development
+        working_dir: /app/frontend
+        volumes:
+            - ./frontend:/app/frontend
+        environment:
+            - VITE_BASE_API_URL=http://localhost:3100
+        command: ["bash", "-c", "yarn && yarn dev"]
+        ports:
+            - "8000:8000"
+
+networks:
+    internal:
+        driver: bridge

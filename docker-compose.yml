@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+    backend:
+        build:
+            context: ./backend
+            target: production
+
+    service:
+        build:
+            context: ./service
+            target: production
+
+    frontend:
+        build:
+            context: ./frontend
+            target: production

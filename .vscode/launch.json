@@ -1,0 +1,27 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "attach",
+			"name": "backend: NestJS Docker Debug",
+			"remoteRoot": "/app/backend",
+			"localRoot": "${workspaceFolder}/backend",
+			"port": 9200,
+			"restart": true,
+			"address": "0.0.0.0",
+			"skipFiles": ["<node_internals>/**"]
+		},
+        {
+			"type": "node",
+			"request": "attach",
+			"name": "service: NestJS Docker Debug",
+			"remoteRoot": "/app/service",
+			"localRoot": "${workspaceFolder}/service",
+			"port": 9201,
+			"restart": true,
+			"address": "0.0.0.0",
+			"skipFiles": ["<node_internals>/**"]
+		}
+	]
+}
