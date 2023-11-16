@@ -48,6 +48,15 @@ describe('PermutationsService', () => {
     expect(service.createPermutations('aabb').length).toBe(6);
   });
 
+  it('should be return unique permutations', () => {
+    const isArrayUnique = (arr: string[]) =>
+      Array.isArray(arr) && new Set(arr).size === arr.length;
+
+    expect(isArrayUnique(service.createPermutations('aba'))).toBeTruthy();
+    expect(isArrayUnique(service.createPermutations('abba'))).toBeTruthy();
+    expect(isArrayUnique(service.createPermutations('abccba'))).toBeTruthy();
+  });
+
   it('should be throw InvalidDataException', () => {
     let invalidInput = 1 as unknown as string;
     expect(() => service.createPermutations(invalidInput)).toThrow(

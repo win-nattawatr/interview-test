@@ -1,5 +1,18 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from "vue";
+import "./assets/_base.css";
+import App from "./App.vue";
+import router from "./router";
 
-createApp(App).mount('#app')
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
+
+const initialize = async () => {
+	const app = createApp(App);
+
+	app.use(router);
+	await router.isReady();
+
+	app.mount("#app");
+};
+
+initialize();

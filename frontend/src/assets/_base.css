@@ -1,0 +1,13 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+}
+
+textarea.no-resize {
+	resize: none;
+}

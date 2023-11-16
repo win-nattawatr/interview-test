@@ -26,7 +26,7 @@ export class ServiceController {
 
     try {
       const result = await lastValueFrom(
-        this.serviceClient.send(
+        this.serviceClient.send<string[]>(
           { name: 'permutations', cmd: 'create' },
           body.input,
         ),
