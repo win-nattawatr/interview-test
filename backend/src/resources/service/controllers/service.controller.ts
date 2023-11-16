@@ -49,4 +49,34 @@ export class ServiceController {
       }
     }
   }
+
+  @Post('findTheOddInt')
+  async findTheOddInt(@Body() body: { input: number[] }, @Res() res: Response) {
+    if (!body.input) throw new BadRequestException(`'input' is required`);
+
+    try {
+      const result = await lastValueFrom(
+        this.serviceClient.send<number>(
+          { name: 'findTheOddInt', cmd: 'find' },
+          body.input,
+        ),
+      );
+
+      return res.status(200).json(result);
+    } catch (e) {
+      switch (e.name) {
+        case 'InvalidDataException':
+          throw new BadRequestException(e.message, {
+            cause: e,
+            description: e.name,
+          });
+
+        default:
+          throw new InternalServerErrorException(e.message, {
+            cause: e,
+            description: e.name,
+          });
+      }
+    }
+  }
 }

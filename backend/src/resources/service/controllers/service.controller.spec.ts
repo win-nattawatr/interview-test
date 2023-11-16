@@ -68,7 +68,7 @@ describe('ServiceController', () => {
     );
   });
 
-  it('should be throw BadRequestException', async () => {
+  it('should be throw InternalServerErrorException', async () => {
     mockServiceServiceClientProxy.send = jest
       .fn()
       .mockImplementation(() => throwError(() => new Error('unknown error')));
@@ -79,6 +79,51 @@ describe('ServiceController', () => {
 
     await expect(
       controller.createPermutations({ input: 'abc' }, mockResponse),
+    ).rejects.toThrow(
+      expect.objectContaining({
+        name: 'InternalServerErrorException',
+        message: 'unknown error',
+      }),
+    );
+  });
+
+  it('should be return findTheOddInt result', async () => {
+    const mockData = 1;
+    mockServiceServiceClientProxy.send = jest
+      .fn()
+      .mockImplementation(() => of(mockData));
+
+    await controller.findTheOddInt({ input: [1, 2, 2] }, mockResponse);
+    expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.OK);
+    expect(mockResponse.json).toHaveBeenCalledWith(mockData);
+  });
+
+  it('should be throw BadRequestException', async () => {
+    await expect(
+      controller.findTheOddInt({ input: undefined }, mockResponse),
+    ).rejects.toThrow(BadRequestException);
+
+    await expect(
+      controller.findTheOddInt({ input: undefined }, mockResponse),
+    ).rejects.toThrow(
+      expect.objectContaining({
+        name: 'BadRequestException',
+        message: "'input' is required",
+      }),
+    );
+  });
+
+  it('should be throw InternalServerErrorException', async () => {
+    mockServiceServiceClientProxy.send = jest
+      .fn()
+      .mockImplementation(() => throwError(() => new Error('unknown error')));
+
+    await expect(
+      controller.findTheOddInt({ input: [1, 2, 2] }, mockResponse),
+    ).rejects.toThrow(InternalServerErrorException);
+
+    await expect(
+      controller.findTheOddInt({ input: [1, 2, 2] }, mockResponse),
     ).rejects.toThrow(
       expect.objectContaining({
         name: 'InternalServerErrorException',

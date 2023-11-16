@@ -18,6 +18,11 @@
 					<li class="nav-item">
 						<RouterLink class="nav-link" to="/permutations" active-class="active">Permutations</RouterLink>
 					</li>
+					<li class="nav-item">
+						<RouterLink class="nav-link" to="/findTheOddInt" active-class="active">
+							Find the odd int
+						</RouterLink>
+					</li>
 				</ul>
 			</div>
 		</div>

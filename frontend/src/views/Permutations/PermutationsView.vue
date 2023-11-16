@@ -3,7 +3,7 @@
 		<h3>Permutations</h3>
 		<div class="permutations__container">
 			<div>
-				<label for="permutations-input" class="form-label">Permutations Input</label>
+				<label for="permutations-input" class="form-label">Input</label>
 				<input
 					v-model="permutationsInput"
 					type="text"
@@ -13,7 +13,7 @@
 				/>
 			</div>
 			<div>
-				<label for="permutations-result" class="form-label">Permutations Result</label>
+				<label for="permutations-result" class="form-label">Result</label>
 				<textarea
 					v-model="permutationsResult"
 					class="form-control no-resize"
@@ -27,8 +27,9 @@
 </template>
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from "vue";
-import { Subject, Subscription, debounceTime, defer, of, switchMap } from "rxjs";
+import { Subject, Subscription, catchError, debounceTime, defer, of, switchMap } from "rxjs";
 import { usePermutationsService } from "../../composables/permutations.service";
+import { AxiosError } from "axios";
 
 const permutationsService = usePermutationsService();
 
@@ -39,9 +40,14 @@ const _fetchResult$ = new Subject<string>();
 const fetchResult$ = _fetchResult$.asObservable().pipe(
 	debounceTime(1000),
 	switchMap((input) => {
-		if (input) return defer(() => permutationsService.getPermutations(input));
+		if (input)
+			return defer(() => permutationsService.getPermutations(input)).pipe(
+				catchError((error: AxiosError<Error>) =>
+					of(error.response ? error.response.data.message : error.message)
+				)
+			);
 
-		return of([]);
+		return of("");
 	})
 );
 
@@ -53,8 +59,7 @@ let fetchResultSubscription: Subscription;
 onMounted(() => {
 	fetchResultSubscription = fetchResult$.subscribe({
 		next: (result) => {
-			permutationsResult.value = result.join(", ");
-			// console.log(result);
+			permutationsResult.value = Array.isArray(result) ? result.join(", ") : result;
 		},
 	});
 });

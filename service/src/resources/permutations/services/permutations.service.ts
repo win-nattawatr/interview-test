@@ -15,7 +15,7 @@ export class PermutationsService {
   }
 
   private validateInput(input: string): void {
-    if (!input) throw new InvalidDataException('Input must be provided');
+    if (!input) throw new InvalidDataException('Input must be defined');
 
     if (!(typeof input === 'string'))
       throw new InvalidDataException('Input must be a string');

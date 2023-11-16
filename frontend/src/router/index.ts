@@ -15,6 +15,11 @@ const router = createRouter({
 			component: () => import("../views/Permutations/PermutationsView.vue"),
 		},
 		{
+			path: "/findTheOddInt",
+			name: "findTheOddInt",
+			component: () => import("../views/FindTheOddInt/FindTheOddIntView.vue"),
+		},
+		{
 			path: "/:pathMatch(.*)*",
 			redirect: "/",
 		},
