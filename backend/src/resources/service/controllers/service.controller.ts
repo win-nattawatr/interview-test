@@ -79,4 +79,38 @@ export class ServiceController {
       }
     }
   }
+
+  @Post('countTheSmileyFaces')
+  async countTheSmileyFaces(
+    @Body() body: { input: string[] },
+    @Res() res: Response,
+  ) {
+    if (!body.input) throw new BadRequestException(`'input' is required`);
+
+    try {
+      const result = await lastValueFrom(
+        this.serviceClient.send<number>(
+          { name: 'countTheSmileyFaces', cmd: 'find' },
+          body.input,
+        ),
+      );
+
+      return res.status(200).json(result);
+    } catch (e) {
+      console.log(e);
+      switch (e.name) {
+        case 'InvalidDataException':
+          throw new BadRequestException(e.message, {
+            cause: e,
+            description: e.name,
+          });
+
+        default:
+          throw new InternalServerErrorException(e.message, {
+            cause: e,
+            description: e.name,
+          });
+      }
+    }
+  }
 }

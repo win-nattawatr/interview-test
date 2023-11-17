@@ -8,7 +8,7 @@
 			<RouterLink class="list-group-item list-group-item-action" to="/findTheOddInt" active-class="active">
 				Find the odd int
 			</RouterLink>
-			<RouterLink class="list-group-item list-group-item-action" to="/permutations" active-class="active">
+			<RouterLink class="list-group-item list-group-item-action" to="/countTheSmileyFaces" active-class="active">
 				Count the smiley faces!
 			</RouterLink>
 		</div>

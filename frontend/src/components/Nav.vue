@@ -23,6 +23,11 @@
 							Find the odd int
 						</RouterLink>
 					</li>
+					<li class="nav-item">
+						<RouterLink class="nav-link" to="/countTheSmileyFaces" active-class="active">
+							Count the smiley faces!
+						</RouterLink>
+					</li>
 				</ul>
 			</div>
 		</div>

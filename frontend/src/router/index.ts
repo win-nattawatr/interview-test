@@ -20,6 +20,11 @@ const router = createRouter({
 			component: () => import("../views/FindTheOddInt/FindTheOddIntView.vue"),
 		},
 		{
+			path: "/countTheSmileyFaces",
+			name: "countTheSmileyFaces",
+			component: () => import("../views/CountTheSmileyFaces/CountTheSmileyFacesView.vue"),
+		},
+		{
 			path: "/:pathMatch(.*)*",
 			redirect: "/",
 		},

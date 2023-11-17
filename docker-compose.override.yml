@@ -11,7 +11,7 @@ services:
             - ALLOWED_ORIGINS=http://localhost:8800
             - SERVICE_HOST=service
             - SERVICE_PORT=3102
-        restart: on-failure
+        restart: always
         command: ["bash", "-c", "yarn && yarn start:debug"]
         ports:
             - "3101:3101"
@@ -29,7 +29,7 @@ services:
             - PORT=3102
             - NODE_ENV=development
             - HOST=service
-        restart: on-failure
+        restart: always
         command: ["bash", "-c", "yarn && yarn start:debug"]
         ports:
             - "9201:9229" # debug
@@ -44,6 +44,7 @@ services:
             - ./frontend:/app/frontend
         environment:
             - VITE_BASE_API_URL=http://localhost:3101
+        restart: always
         command: ["bash", "-c", "yarn && yarn dev"]
         ports:
             - "8800:8800"

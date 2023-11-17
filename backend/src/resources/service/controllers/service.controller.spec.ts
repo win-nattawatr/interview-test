@@ -131,4 +131,52 @@ describe('ServiceController', () => {
       }),
     );
   });
+
+  it('should be return countTheSmileyFaces result', async () => {
+    const mockData = 1;
+    mockServiceServiceClientProxy.send = jest
+      .fn()
+      .mockImplementation(() => of(mockData));
+
+    await controller.countTheSmileyFaces(
+      { input: [':-)', ';/'] },
+      mockResponse,
+    );
+    expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.OK);
+    expect(mockResponse.json).toHaveBeenCalledWith(mockData);
+  });
+
+  it('should be throw BadRequestException', async () => {
+    await expect(
+      controller.countTheSmileyFaces({ input: undefined }, mockResponse),
+    ).rejects.toThrow(BadRequestException);
+
+    await expect(
+      controller.countTheSmileyFaces({ input: undefined }, mockResponse),
+    ).rejects.toThrow(
+      expect.objectContaining({
+        name: 'BadRequestException',
+        message: "'input' is required",
+      }),
+    );
+  });
+
+  it('should be throw InternalServerErrorException', async () => {
+    mockServiceServiceClientProxy.send = jest
+      .fn()
+      .mockImplementation(() => throwError(() => new Error('unknown error')));
+
+    await expect(
+      controller.countTheSmileyFaces({ input: [':-)', ';/'] }, mockResponse),
+    ).rejects.toThrow(InternalServerErrorException);
+
+    await expect(
+      controller.countTheSmileyFaces({ input: [':-)', ';/'] }, mockResponse),
+    ).rejects.toThrow(
+      expect.objectContaining({
+        name: 'InternalServerErrorException',
+        message: 'unknown error',
+      }),
+    );
+  });
 });
