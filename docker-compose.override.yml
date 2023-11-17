@@ -6,15 +6,15 @@ services:
         volumes:
             - ./backend:/app/backend
         environment:
-            - PORT=3100
+            - PORT=3101
             - NODE_ENV=development
-            - ALLOWED_ORIGINS=http://localhost:8000
+            - ALLOWED_ORIGINS=http://localhost:8800
             - SERVICE_HOST=service
-            - SERVICE_PORT=3101
+            - SERVICE_PORT=3102
         restart: on-failure
         command: ["bash", "-c", "yarn && yarn start:debug"]
         ports:
-            - "3100:3100"
+            - "3101:3101"
             - "9200:9229" # debug
         networks:
             - internal
@@ -26,7 +26,7 @@ services:
         volumes:
             - ./service:/app/service
         environment:
-            - PORT=3101
+            - PORT=3102
             - NODE_ENV=development
             - HOST=service
         restart: on-failure
@@ -43,10 +43,10 @@ services:
         volumes:
             - ./frontend:/app/frontend
         environment:
-            - VITE_BASE_API_URL=http://localhost:3100
+            - VITE_BASE_API_URL=http://localhost:3101
         command: ["bash", "-c", "yarn && yarn dev"]
         ports:
-            - "8000:8000"
+            - "8800:8800"
 
 networks:
     internal:

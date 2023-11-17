@@ -8,7 +8,7 @@ export default defineConfig({
 	plugins: [vue()],
 	server: {
 		host: true,
-		port: 8000,
+		port: 8800,
 	},
 	test: {
 		globals: true,
