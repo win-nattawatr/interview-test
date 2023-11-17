@@ -120,7 +120,7 @@ $ docker compose up backend
 $ docker compose up service
 ```
 
-### Test
+### Unit Test
 
 ```bash
 # frontend
