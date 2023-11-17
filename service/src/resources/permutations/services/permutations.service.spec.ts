@@ -35,7 +35,6 @@ describe('PermutationsService', () => {
       'cab',
       'cba',
     ]);
-    expect(service.createPermutations('abc').length).toBe(6);
 
     expect(service.createPermutations('aabb')).toEqual([
       'aabb',
@@ -45,7 +44,33 @@ describe('PermutationsService', () => {
       'baba',
       'bbaa',
     ]);
-    expect(service.createPermutations('aabb').length).toBe(6);
+
+    expect(service.createPermutations('abcd')).toEqual([
+      'abcd',
+      'abdc',
+      'acbd',
+      'acdb',
+      'adbc',
+      'adcb',
+      'bacd',
+      'badc',
+      'bcad',
+      'bcda',
+      'bdac',
+      'bdca',
+      'cabd',
+      'cadb',
+      'cbad',
+      'cbda',
+      'cdab',
+      'cdba',
+      'dabc',
+      'dacb',
+      'dbac',
+      'dbca',
+      'dcab',
+      'dcba',
+    ]);
   });
 
   it('should be return unique permutations', () => {

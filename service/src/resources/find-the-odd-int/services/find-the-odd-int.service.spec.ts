@@ -28,6 +28,8 @@ describe('FindTheOddIntService', () => {
     expect(service.find([1, 1, 2])).toBe(2);
     expect(service.find([0, 1, 0, 1, 0])).toBe(0);
     expect(service.find([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1])).toBe(4);
+    expect(service.find([1, 3, 2, 1, 2, 3, 3])).toBe(3);
+    expect(service.find([0, 2, 0, 1, 2, 3, 3, 4])).toBe(1);
   });
 
   it('should be return first odd times int when matched more than 1 time', () => {
