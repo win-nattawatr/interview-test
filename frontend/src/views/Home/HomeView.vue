@@ -1,6 +1,6 @@
 <template>
 	<div class="home-view__container">
-		<h3>Interview Test</h3>
+		<h3>Interview Test - Nestjs & Vue</h3>
 		<div class="list-group home-view__menus">
 			<RouterLink class="list-group-item list-group-item-action" to="/permutations" active-class="active">
 				Permutations
