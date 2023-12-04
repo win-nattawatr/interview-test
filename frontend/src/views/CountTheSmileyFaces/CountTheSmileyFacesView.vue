@@ -3,7 +3,7 @@
 		<h3>Count the smiley faces!</h3>
 		<div class="count-the-smiley-faces__container">
 			<div>
-				<label for="count-the-smiley-faces-input" class="form-label">Input!</label>
+				<label for="count-the-smiley-faces-input" class="form-label">Input</label>
 				<input
 					v-model="countTheSmileyFacesInput"
 					type="text"
